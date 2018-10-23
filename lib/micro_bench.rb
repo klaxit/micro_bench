@@ -1,23 +1,21 @@
 module MicroBench
   class << self
     def start(bench_id = nil)
-      lock.synchronize do
-        benchmarks[bench_id] = MicroBench::Benchmark.new
-        return bench_id
-      end
+      benchmarks[benchmark_key(bench_id)] = MicroBench::Benchmark.new
+      return true
     end
 
     def stop(bench_id = nil)
-      lock.synchronize do
-        if benchmarks[bench_id].nil?
-          raise ArgumentError, "Unknown benchmark #{bench_id}"
-        end
-        benchmarks[bench_id].stop
+      key = benchmark_key(bench_id)
+      if benchmarks[key].nil?
+        raise ArgumentError, "Unknown benchmark #{bench_id}"
       end
+
+      benchmarks[key].stop
     end
 
     def get(bench_id = nil)
-      benchmarks[bench_id]
+      benchmarks[benchmark_key(bench_id)]
     end
 
     def sget(bench_id = nil)
@@ -25,12 +23,14 @@ module MicroBench
       get(bench_id)
     end
 
-    def lock
-      @lock ||= Mutex.new
-    end
+    private
 
     def benchmarks
       @benchmarks ||= {}
+    end
+
+    def benchmark_key(bench_id = nil)
+      "#{Thread.current.object_id}||#{bench_id}"
     end
   end
 end
