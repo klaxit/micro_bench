@@ -3,22 +3,33 @@
 
 [![Gem Version](https://badge.fury.io/rb/micro_bench.svg)](https://badge.fury.io/rb/micro_bench)
 
-Dead simple, non intrusive realtime benchmarks.
+Ruby `Benchmark` module is nice but it uses blocks. We see 2 problems to it :
+- if we want to instrument a snippet of code, it breaks git history,
+- variables are tied to the benchmark block, so we have to initialize them outside of the benchmark block to use them subsequently.
 
-Benchmark standard library is nice but it uses blocks, which break git history.
+Let's say you want to output the duration of `method_1` from :
 
-It replaces :
+```ruby
+foo = method_1
+method_2(foo)
 ```
-puts Benchmark.realtime do
-  sleep(1)
+
+With `Benchmark`, we would write something like :
+```ruby
+foo = nil
+duration = Benchmark.realtime do
+  foo = method_1
 end
+puts "Method 1 duration : #{duration} seconds"
+method_2(foo)
 ```
 
-By :
-```
-MicroBench.start(:my_bench)
-sleep(1)
-puts MicroBench.sget(:my_bench)
+With `MicroBench`, it will look like this :
+```ruby
+MicroBench.start
+foo = method_1
+puts "Method 1 duration : #{MicroBench.duration} seconds"
+method_2(foo)
 ```
 
 ## Install
@@ -28,11 +39,52 @@ gem install micro_bench
 ```
 
 or in Bundler:
-```
+```ruby
 gem "micro_bench"
 ```
 
 ## Usage
+
+### Basic usage
+
+```ruby
+require "micro_bench"
+
+MicroBench.start
+
+MicroBench.duration
+# 1.628093000501394
+
+MicroBench.duration
+# 2.999483000487089
+
+MicroBench.stop
+# true
+
+MicroBench.duration
+# 5.4341670004651
+
+MicroBench.duration
+# 5.4341670004651
+```
+
+### Named benchmarks
+
+```ruby
+require "micro_bench"
+
+MicroBench.start("timer1")
+
+MicroBench.stop("timer1")
+
+MicroBench.duration("timer1")
+# 1.628093000501394
+```
+
+### Thread safety
+
+We ensured that `MicroBench` is thread-safe, so you can use it in multi-threaded environments.
+
 
 ## Versioning
 
