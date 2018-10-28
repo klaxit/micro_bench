@@ -1,21 +1,22 @@
 class MicroBench::Benchmark
-  attr_reader :duration
-
   def initialize
     @start_time = monotonic_clock_time
   end
 
   def stop
-    return false unless @end_time.nil?
+    return false unless running?
 
-    @end_time = monotonic_clock_time
-    @duration = @end_time - @start_time
+    @duration = monotonic_clock_time - @start_time
 
     return true
   end
 
+  def duration
+    @duration || (monotonic_clock_time - @start_time)
+  end
+
   def running?
-    @end_time.nil?
+    @duration.nil?
   end
 
   def to_s

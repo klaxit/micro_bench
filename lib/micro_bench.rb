@@ -7,20 +7,15 @@ module MicroBench
 
     def stop(bench_id = nil)
       key = benchmark_key(bench_id)
-      if benchmarks[key].nil?
+      unless benchmarks.key?(key)
         raise ArgumentError, "Unknown benchmark #{bench_id}"
       end
 
       benchmarks[key].stop
     end
 
-    def get(bench_id = nil)
-      benchmarks[benchmark_key(bench_id)]
-    end
-
-    def sget(bench_id = nil)
-      stop(bench_id)
-      get(bench_id)
+    def duration(bench_id = nil)
+      benchmarks[benchmark_key(bench_id)]&.duration
     end
 
     private
