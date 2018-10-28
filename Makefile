@@ -4,4 +4,4 @@ console:
 	irb -I lib -r micro_bench
 
 test:
-	bundle rspec spec
+	bundle exec rspec spec

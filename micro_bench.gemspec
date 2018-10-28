@@ -1,14 +1,13 @@
-# -*- encoding: utf-8 -*-
-$LOAD_PATH.push File.expand_path("../lib", __FILE__)
-require "micro-bench/version"
+$LOAD_PATH.push File.expand_path("lib", __dir__)
+require "micro_bench/version"
 
 Gem::Specification.new do |s|
-  s.name        = "micro-bench"
+  s.name        = "micro_bench"
   s.version     = MicroBench::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Cyrille Courtière"]
   s.email       = ["cyrille@klaxit.com"]
-  s.homepage    = "http://github.com/klaxit/micro-bench"
+  s.homepage    = "http://github.com/klaxit/micro_bench"
   s.summary     = "Dead simple benchmarks"
   s.license     = "MIT"
 
@@ -17,6 +16,6 @@ Gem::Specification.new do |s|
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_paths = "lib"
 
-  s.add_development_dependency("rspec", "~> 3.5")
   s.add_development_dependency("byebug", "~> 9.0")
+  s.add_development_dependency("rspec", "~> 3.8")
 end
