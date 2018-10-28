@@ -1,2 +1,4 @@
 .ruby-version
 .rubocop-*
+.byebug_history
+*.gem
