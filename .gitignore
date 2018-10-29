@@ -2,3 +2,4 @@
 .rubocop-*
 .byebug_history
 *.gem
+Gemfile.lock
