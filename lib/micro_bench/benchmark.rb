@@ -20,12 +20,7 @@ class MicroBench::Benchmark
   end
 
   def to_s
-    "duration : #{@duration}"
-  end
-
-  def inspect
-    "<#{self.class}:0x#{object_id} " \
-    "@duration=#{instance_variable_get("@duration").inspect}>"
+    duration.to_s
   end
 
   private

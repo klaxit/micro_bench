@@ -7,9 +7,7 @@ module MicroBench
 
     def stop(bench_id = nil)
       key = benchmark_key(bench_id)
-      unless benchmarks.key?(key)
-        raise ArgumentError, "Unknown benchmark #{bench_id}"
-      end
+      return false unless benchmarks.key?(key)
 
       benchmarks[key].stop
     end
