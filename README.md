@@ -83,8 +83,11 @@ MicroBench.duration("timer1")
 
 ### Thread safety
 
-We ensured that `MicroBench` is thread-safe, so you can use it in multi-threaded environments.
+A benchmark is tied to a thread, ensuring that `MicroBench` is thread-safe. At the same time, it doesn't allow to share a benchmark between multiple threads.
 
+### Multiple starts
+
+Calling `.start` multiple times with the same `bench_id` will cause a "restart" of the given benchmark.
 
 ## Versioning
 
