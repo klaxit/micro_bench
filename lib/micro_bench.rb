@@ -1,10 +1,37 @@
 module MicroBench
   class << self
+    # Start a benchmark
+    #
+    # == Parameters:
+    # bench_id::
+    #   Identifier of the benchmark
+    #
+    # == Returns:
+    # A boolean representing success
+    #
+    # == Example usage:
+    #   MicroBench.start(:my_benchmark)
+    #
+    # Calling the method multiple times with the same bench_id will restart
+    # the benchmark for the given bench_id.
+    #
     def start(bench_id = nil)
       benchmarks[benchmark_key(bench_id)] = MicroBench::Benchmark.new
       return true
     end
 
+    # Stop a benchmark
+    #
+    # == Parameters:
+    # bench_id::
+    #   Identifier of the benchmark
+    #
+    # == Returns:
+    # A boolean representing success
+    #
+    # == Example usage:
+    #   MicroBench.stop(:my_benchmark)
+    #
     def stop(bench_id = nil)
       key = benchmark_key(bench_id)
       return false unless benchmarks.key?(key)
@@ -12,6 +39,18 @@ module MicroBench
       benchmarks[key].stop
     end
 
+    # Give duration of the benchmark
+    #
+    # == Parameters:
+    # bench_id::
+    #   Identifier of the benchmark
+    #
+    # == Returns:
+    # Duration of the given benchmark, or nil if benchmark is unknown
+    #
+    # == Example usage:
+    #   MicroBench.stop(:my_benchmark)
+    #
     def duration(bench_id = nil)
       benchmarks[benchmark_key(bench_id)]&.duration
     end
