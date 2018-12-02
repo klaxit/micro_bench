@@ -59,9 +59,35 @@ describe MicroBench do
       Thread.current[:expected] = 0.01 * 2
       Thread.current[:duration] = described_class.duration
     end
+
     [t1, t2].each do |t|
       t.join
       expect(t[:duration].round(2)).to eq(t[:expected])
     end
   end
+
+  it "prevents cross-method collisions" do
+    test_klass = Class.new do
+      attr_accessor :method_1_duration
+      attr_accessor :method_2_duration
+      def method_1
+        MicroBench.start
+        method_2
+        sleep(0.01)
+        MicroBench.stop
+        @method_1_duration = MicroBench.duration
+      end
+      def method_2
+        MicroBench.start
+        sleep(0.01)
+        MicroBench.stop
+        @method_2_duration = MicroBench.duration
+      end
+    end
+
+    subject = test_klass.new
+    subject.method_1
+    expect(subject.method_1_duration).to_not eq(subject.method_2_duration)
+  end
+
 end

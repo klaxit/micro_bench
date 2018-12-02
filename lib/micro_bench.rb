@@ -62,7 +62,18 @@ module MicroBench
     end
 
     def benchmark_key(bench_id = nil)
-      "#{Thread.current.object_id}||#{bench_id}"
+      "#{thread_key}||#{caller_key}||#{bench_id}"
+    end
+
+    def thread_key
+      Thread.current.object_id
+    end
+
+    def caller_key
+      caller_location = caller_locations(2..4).detect do |loc|
+        !loc.absolute_path.include?(__FILE__)
+      end
+      "#{caller_location.absolute_path}:#{caller_location.label}"
     end
   end
 end
