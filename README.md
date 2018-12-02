@@ -81,13 +81,36 @@ MicroBench.duration("timer1")
 # 1.628093000501394
 ```
 
+### Multiple starts
+
+Calling `.start` multiple times with the same `bench_id` (or none) will cause a "restart" of the given benchmark.
+
 ### Thread safety
 
 A benchmark is tied to a thread, ensuring that `MicroBench` is thread-safe. At the same time, it doesn't allow to share a benchmark between multiple threads.
 
-### Multiple starts
+### Methods isolation
 
-Calling `.start` multiple times with the same `bench_id` will cause a "restart" of the given benchmark.
+A benchmark is tied to its calling method so the following code will output 2 separated durations for `method_1` and `method_2`. This prevent collisions when using `MicroBench` in a large codebase.
+
+```ruby
+def method_1
+  MicroBench.start
+  method_2
+  # Do something
+  MicroBench.stop
+  puts "method_1 duration : #{MicroBench.duration}"
+end
+
+def method_2
+  MicroBench.start
+  # Do something
+  MicroBench.stop
+  puts "method_2 duration : #{MicroBench.duration}"
+end
+
+method_1
+```
 
 ## Versioning
 
