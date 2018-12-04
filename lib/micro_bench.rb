@@ -73,7 +73,7 @@ module MicroBench
       caller_location = caller_locations(2..4).detect do |loc|
         !loc.absolute_path.include?(__FILE__)
       end
-      "#{caller_location.absolute_path}:#{caller_location.label}"
+      "#{caller_location.absolute_path}:#{caller_location.base_label}"
     end
   end
 end
