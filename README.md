@@ -32,6 +32,8 @@ puts "Method 1 duration : #{MicroBench.duration} seconds"
 method_2(foo)
 ```
 
+**WARNING : This is still beta code and may not be suitable for production usage. While still in beta, API may be subject to breaking changes on MINOR versions (but not on PATCH versions).**
+
 ## Install
 
 ```
@@ -115,6 +117,8 @@ method_1
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/klaxit/micro_bench/tags).
+
+While still in beta (before `1.0.0`), API may be subject to breaking changes on MINOR versions (but not on PATCH versions).
 
 ## Authors
 
