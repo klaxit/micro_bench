@@ -90,4 +90,24 @@ describe MicroBench do
     expect(subject.method_1_duration).to_not eq(subject.method_2_duration)
   end
 
+  it "allows referencing a benchmark from a Proc / Block / Lambda" do
+    MicroBench.start
+    # from a Proc
+    proc = Proc.new do
+      expect(MicroBench.duration).to_not be_nil
+    end
+    proc.call
+    # from a Block
+    def my_method
+      yield
+    end
+    my_method do
+      expect(MicroBench.duration).to_not be_nil
+    end
+    # from a Lambda
+    l = lambda do
+      expect(MicroBench.duration).to_not be_nil
+    end
+    l.call
+  end
 end
