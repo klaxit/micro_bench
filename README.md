@@ -3,9 +3,15 @@
 
 [![Gem Version](https://badge.fury.io/rb/micro_bench.svg)](https://badge.fury.io/rb/micro_bench)
 
+```
+gem install micro_bench
+```
+
+## Why ?
+
 Ruby `Benchmark` module is nice but it uses blocks. We see 2 problems to it :
 - if we want to instrument a snippet of code, it breaks git history,
-- variables are tied to the benchmark block, so we have to initialize them outside of the benchmark block to use them subsequently.
+- variables declared in the benchmark block cannot be used subsequently.
 
 Let's say you want to output the duration of `method_1` from :
 
@@ -32,7 +38,10 @@ puts "Method 1 duration : #{MicroBench.duration} seconds"
 method_2(foo)
 ```
 
-**WARNING : This is still beta code and may not be suitable for production usage. While still in beta, API may be subject to breaking changes on MINOR versions (but not on PATCH versions).**
+## Project maturity
+
+This has been running in production at [Klaxit](https://www.klaxit.com) for some months now, but it is still a young library. API may be subject to breaking changes on MINOR versions (but not on PATCH versions).
+
 
 ## Install
 
