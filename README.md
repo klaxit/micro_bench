@@ -2,6 +2,7 @@
 # MicroBench
 
 [![Gem Version](https://badge.fury.io/rb/micro_bench.svg)](https://badge.fury.io/rb/micro_bench)
+[![CircleCI](https://circleci.com/gh/klaxit/micro_bench.svg?style=shield)](https://circleci.com/gh/klaxit/micro_bench)
 
 Ruby `Benchmark` module is nice but it uses blocks. We see 2 problems to it :
 - if we want to instrument a snippet of code, it breaks git history,
