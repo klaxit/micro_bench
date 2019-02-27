@@ -2,6 +2,7 @@
 # MicroBench
 
 [![Gem Version](https://badge.fury.io/rb/micro_bench.svg)](https://badge.fury.io/rb/micro_bench)
+[![CircleCI](https://circleci.com/gh/klaxit/micro_bench.svg?style=shield)](https://circleci.com/gh/klaxit/micro_bench)
 
 ```
 gem install micro_bench
