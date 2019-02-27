@@ -22,6 +22,7 @@ jobs:
       #    (or conflicts on native gems may appear)
       - restore_cache:
           keys:
+            - v1-gem-cache-ruby-2.5-{{ arch }}-{{ checksum "micro_bench.gemspec" }}
             - v1-gem-cache-ruby-2.5-{{ arch }}-
 
       - run:
@@ -29,7 +30,7 @@ jobs:
           command: bundle install && bundle clean
 
       - save_cache:
-          key: v1-gem-cache-ruby-2.5-{{ arch }}-
+          key: v1-gem-cache-ruby-2.5-{{ arch }}-{{ checksum "micro_bench.gemspec" }}
           paths:
             - vendor/bundle
 
