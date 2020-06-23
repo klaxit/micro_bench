@@ -1,5 +1,18 @@
+# frozen_string_literal: true
+
 module MicroBench
   class << self
+    # Configure MicroBench.
+    #
+    # == Example usage:
+    #   MicroBench.configure do |config|
+    #     config.formatter = proc { |duration| duration.ceil }
+    #   end
+    def configure(&block)
+      block.call(configurations)
+      nil
+    end
+
     # Start a benchmark
     #
     # == Parameters:
@@ -52,10 +65,16 @@ module MicroBench
     #   MicroBench.stop(:my_benchmark)
     #
     def duration(bench_id = nil)
-      benchmarks[benchmark_key(bench_id)]&.duration
+      configurations.formatter.call(
+        benchmarks[benchmark_key(bench_id)]&.duration
+      )
     end
 
     private
+
+    def configurations
+      @configurations ||= Configurations.new
+    end
 
     def benchmarks
       @benchmarks ||= {}
@@ -79,3 +98,4 @@ module MicroBench
 end
 
 require "micro_bench/benchmark"
+require "micro_bench/configurations"

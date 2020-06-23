@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MicroBench::Benchmark
   def initialize
     @start_time = monotonic_clock_time
