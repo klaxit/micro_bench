@@ -1,4 +1,4 @@
-require "spec_helper"
+# frozen_string_literal: true
 
 describe MicroBench do
   it "gives seconds duration doing something" do
@@ -91,10 +91,10 @@ describe MicroBench do
   end
 
   it "allows referencing a benchmark from a Proc / Block / Lambda" do
-    MicroBench.start
+    described_class.start
     # from a Proc
     proc = Proc.new do
-      expect(MicroBench.duration).to_not be_nil
+      expect(described_class.duration).to_not be_nil
     end
     proc.call
     # from a Block
@@ -102,12 +102,28 @@ describe MicroBench do
       yield
     end
     my_method do
-      expect(MicroBench.duration).to_not be_nil
+      expect(described_class.duration).to_not be_nil
     end
     # from a Lambda
     l = lambda do
-      expect(MicroBench.duration).to_not be_nil
+      expect(described_class.duration).to_not be_nil
     end
     l.call
+  end
+
+  it "formats duration when configured with an id" do
+    described_class.configure do |config|
+      config.formatter = :human
+    end
+    described_class.start
+    expect(described_class.duration).to eq "0 seconds"
+  end
+
+  it "formats duration when using a callable" do
+    described_class.configure do |config|
+      config.formatter = proc { "result" }
+    end
+    described_class.start
+    expect(described_class.duration).to eq "result"
   end
 end

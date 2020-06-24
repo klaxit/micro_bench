@@ -124,6 +124,31 @@ end
 method_1
 ```
 
+### Configuration
+
+You can configure a bit `MicroBench` to have an even simpler time using it afterwards. Here's how:
+
+```ruby
+MicroBench.configure do |config|
+  config.formatter = ->(duration) { "#{duration.round} seconds" }
+end
+
+MicroBench.start
+sleep 2
+MicroBench.duration == "2 seconds"
+```
+
+There are some default formatters that you can set:
+
+| id        | result                       | description                              |
+| --------- | ---------------------------- | ---------------------------------------- |
+| `default` | `722.327823832`              | the raw original float, for computation  |
+| `simple`  | `722.33`                     | rounds to 2 digits                       |
+| `mmss`    | `"12:02.328"`                | Easy to understand, lossless and compact |
+| `human`   | `"12 minutes and 2 seconds"` | For humans, clutters logs                |
+
+To use one of those, simply write `config.formatter = :simple` instead of a lambda.
+
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/klaxit/micro_bench/tags).

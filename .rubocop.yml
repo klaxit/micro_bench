@@ -1,7 +1,7 @@
 # Override Klaxit remote Rubocop config
 # See https://github.com/klaxit/ruby/rubocop.yml
 inherit_from:
-  - https://raw.githubusercontent.com/klaxit/ruby/master/rubocop.yml
+  - https://git.io/klaxit-rubocop
 
 AllCops:
   Exclude:
