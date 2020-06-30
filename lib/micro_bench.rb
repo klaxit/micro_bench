@@ -59,15 +59,32 @@ module MicroBench
     #   Identifier of the benchmark
     #
     # == Returns:
-    # Duration of the given benchmark, or nil if benchmark is unknown
+    # Formatted duration of the given benchmark, or nil if benchmark is unknown.
     #
     # == Example usage:
-    #   MicroBench.stop(:my_benchmark)
+    #   MicroBench.duration(:my_benchmark)
     #
     def duration(bench_id = nil)
-      configurations.formatter.call(
-        benchmarks[benchmark_key(bench_id)]&.duration
-      )
+      raw = raw_duration(bench_id)
+      return nil if raw.nil?
+      
+      configurations.formatter.call(raw)
+    end
+
+    # Give raw duration of the benchmark
+    #
+    # == Parameters:
+    # bench_id::
+    #   Identifier of the benchmark
+    #
+    # == Returns:
+    # Duration of the given benchmark, or nil if benchmark is unknown.
+    #
+    # == Example usage:
+    #   MicroBench.raw_duration(:my_benchmark)
+    #
+    def raw_duration(bench_id = nil)
+      benchmarks[benchmark_key(bench_id)]&.duration
     end
 
     private

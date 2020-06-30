@@ -126,4 +126,9 @@ describe MicroBench do
     described_class.start
     expect(described_class.duration).to eq "result"
   end
+
+  it "gives raw duration" do
+    described_class.start
+    expect(described_class.raw_duration).to be_a Float
+  end
 end
