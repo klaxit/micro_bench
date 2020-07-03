@@ -3,20 +3,20 @@
 $LOAD_PATH.push File.expand_path("lib", __dir__)
 require "micro_bench/version"
 
-Gem::Specification.new do |s|
-  s.name        = "micro_bench"
-  s.version     = MicroBench::VERSION
-  s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Cyrille Courtière"]
-  s.email       = ["cyrille@klaxit.com"]
-  s.homepage    = "http://github.com/klaxit/micro_bench"
-  s.summary     = "Dead simple benchmarks"
-  s.license     = "MIT"
+Gem::Specification.new do |spec|
+  spec.name        = "micro_bench"
+  spec.version     = MicroBench::VERSION
+  spec.platform    = Gem::Platform::RUBY
+  spec.authors     = ["Cyrille Courtière"]
+  spec.email       = ["cyrille@klaxit.com"]
+  spec.homepage    = "http://github.com/klaxit/micro_bench"
+  spec.summary     = "Dead simple benchmarks"
+  spec.license     = "MIT"
+  spec.required_ruby_version = Gem::Requirement.new(">= 2.4.6")
 
-  s.files = `git ls-files -- lib/*`.split("\n")
-  s.files += %w(README.md)
-  s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.require_paths = "lib"
+  spec.files = Dir["lib/**/*.rb"] + %w(README.md CHANGELOG.md)
+  spec.test_files = Dir["spec/**/*"] + %w(.rspec)
+  spec.require_paths = "lib"
 
   s.add_development_dependency("byebug", "~> 9.0")
   s.add_development_dependency("rspec", "~> 3.8")
