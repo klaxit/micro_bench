@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version     = MicroBench::VERSION
   spec.platform    = Gem::Platform::RUBY
   spec.authors     = ["Cyrille Courtière"]
-  spec.email       = ["cyrille@klaxit.com"]
+  spec.email       = ["dev@klaxit.com"]
   spec.homepage    = "http://github.com/klaxit/micro_bench"
   spec.summary     = "Dead simple benchmarks"
   spec.license     = "MIT"
@@ -18,6 +18,6 @@ Gem::Specification.new do |spec|
   spec.test_files = Dir["spec/**/*"] + %w(.rspec)
   spec.require_paths = "lib"
 
-  s.add_development_dependency("byebug", "~> 9.0")
-  s.add_development_dependency("rspec", "~> 3.8")
+  spec.add_development_dependency("byebug", "~> 9.0")
+  spec.add_development_dependency("rspec", "~> 3.8")
 end
